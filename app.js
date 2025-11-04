@@ -99,6 +99,8 @@ function render() {
   });
   filtered.sort((a,b)=>a.name.localeCompare(b.name)).forEach(t => {
     const n = els.tmpl.content.cloneNode(true);
+    $(".card", node).dataset.category = (t.category || "").trim();
+    
     $(".tool-name", n).textContent = t.name;
     $(".tool-category", n).textContent = t.category || "—";
     $(".tool-condition", n).textContent = t.condition || "—";
