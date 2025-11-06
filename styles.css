@@ -1,246 +1,170 @@
+/* Reset some basics */
 * {
-  box-sizing: border-box;
-}
-
-:root {
-  --bg: #0f1115;
-  --muted: #1a1f2b;
-  --card: #141826;
-  --text: #e6e7ee;
-  --soft: #aab3cf;
-  --accent: #5da9ff;
-}
-
-html, body {
+  box‑sizing: border‑box;
   margin: 0;
-  height: 100%;
-  background: var(--bg);
-  color: var(--text);
-  font: 16px/1.5 system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-}
-
-/* ====== TOP BAR ====== */
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 18px;
-  background: var(--muted);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  border-bottom: 1px solid #23283a;
-}
-.topbar h1 {
-  margin: 0;
-  font-size: 20px;
-}
-.actions {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-button, .import-label {
-  background: var(--accent);
-  border: none;
-  color: #08213a;
-  padding: 8px 12px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.2s;
-}
-button:hover, .import-label:hover {
-  filter: brightness(1.08);
-}
-.import-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* ====== CONTROLS ====== */
-.controls {
-  display: grid;
-  grid-template-columns: 1fr 200px 200px;
-  gap: 10px;
-  padding: 14px 18px;
-  background: #0f1420;
-  border-bottom: 1px solid #23283a;
-}
-.controls input,
-.controls select {
-  padding: 10px;
-  border-radius: 12px;
-  border: 1px solid #2a3148;
-  background: var(--card);
-  color: var(--text);
-}
-
-/* ====== GRID / CARD ====== */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 14px;
-  padding: 18px;
-}
-
-.card {
-  position: relative;
-  background: var(--card);
-  border: 1px solid #23283a;
-  border-radius: 16px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-  transition: 0.3s;
-}
-.card:hover {
-  transform: translateY(-2px);
-}
-
-/* Department watermark label */
-.card::before {
-  content: attr(data-category);
-  position: absolute;
-  top: 6px;
-  right: 12px;
-  font-weight: 900;
-  font-size: 18px;
-  opacity: 0.15;
-  color: #000;
-  pointer-events: none;
-  text-transform: uppercase;
-}
-
-/* ====== CARD HEAD / BODY ====== */
-.card-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.card-head h3 {
-  margin: 0;
-  font-size: 18px;
-}
-.badge {
-  padding: 4px 8px;
-  border-radius: 999px;
-  font-size: 12px;
-  background: #25304b;
-  color: #cfe1ff;
-  border: 1px solid #2e3b5c;
-  text-transform: capitalize;
-}
-.badge.out {
-  background: #23370e;
-  color: #c8ffd6;
-  border: 1px solid #2a4c13;
-}
-.badge.archived {
-  background: #2d2d2d;
-  color: #cfcfcf;
-  border: 1px solid #3a3a3a;
-}
-.card-body .row {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-.card-foot {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.btn-small {
-  padding: 6px 10px;
-  border-radius: 10px;
-  background: #212942;
-  color: #dbe3ff;
-  border: 1px solid #2a3150;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.btn-small:hover {
-  filter: brightness(1.1);
-}
-
-/* ====== DIALOGS ====== */
-dialog {
-  border: none;
-  border-radius: 18px;
   padding: 0;
-  overflow: hidden;
-}
-dialog::backdrop {
-  background: rgba(0, 0, 0, 0.6);
-}
-form {
-  padding: 18px;
-  display: grid;
-  gap: 10px;
-  background: var(--card);
-  min-width: 320px;
-}
-form h3 {
-  margin: 0 0 8px 0;
-}
-form label {
-  display: grid;
-  gap: 6px;
-  font-size: 14px;
-}
-form input,
-form textarea,
-form select {
-  padding: 10px;
-  border-radius: 12px;
-  border: 1px solid #2a3148;
-  background: #0f1420;
-  color: var(--text);
-}
-menu {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin: 10px 0 0 0;
-  padding: 0;
-  background: transparent;
-}
-input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  accent-color: var(--accent);
-  cursor: pointer;
-}
-.hidden {
-  display: none !important;
 }
 
-/* ====== DEPARTMENT BACKGROUNDS ====== */
-.card[data-category="Wiring"] {
-  background: linear-gradient(135deg, #ff9a2f, #ff7b00);
-  color: #1a1a1a;
+body {
+  font‑family: Arial, sans‑serif;
+  line‑height: 1.6;
+  background: #f4f4f4;
+  color: #333;
 }
-.card[data-category="Fabrication"] {
-  background: linear-gradient(135deg, #ff4c4c, #c40000);
+
+.container {
+  max‑width: 960px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+/* Header */
+.site-header {
+  text‑align: center;
+  padding: 20px 0;
+  background‑color: #0b79d0;
   color: #fff;
 }
-.card[data-category="Assembly"] {
-  background: linear-gradient(135deg, #339aff, #0066cc);
+
+.site-header h1 {
+  margin‑bottom: 0.5em;
+}
+
+.site-header p {
+  font‑size: 1.1em;
+  opacity: 0.9;
+}
+
+/* Sections */
+section {
+  margin‑bottom: 40px;
+  background: #fff;
+  padding: 20px;
+  border‑radius: 6px;
+  box‑shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+section h2 {
+  margin‑bottom: 15px;
+  color: #0b79d0;
+}
+
+/* Forms */
+.tool‑form form label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+.tool‑form form input[type="text"],
+.tool‑form form select {
+  width: 100%;
+  padding: 8px;
+  font‑size: 1em;
+  border: 1px solid #ccc;
+  border‑radius: 4px;
+}
+
+.tool‑form form button {
+  margin‑top: 15px;
+  padding: 10px 20px;
+  font‑size: 1em;
+  background: #0b79d0;
+  color: #fff;
+  border: none;
+  border‑radius: 4px;
+  cursor: pointer;
+}
+
+.tool‑form form button:hover {
+  background: #095a9c;
+}
+
+/* Tool list / table */
+.tool‑list input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin‑bottom: 15px;
+  font‑size: 1em;
+}
+
+#toolsTable {
+  width: 100%;
+  border‑collapse: collapse;
+}
+
+#toolsTable thead tr {
+  background: #0b79d0;
   color: #fff;
 }
-.card[data-category="QC"] {
-  background: linear-gradient(135deg, #2ee66b, #11993c);
+
+#toolsTable th,
+#toolsTable td {
+  padding: 12px 10px;
+  border: 1px solid #ddd;
+  text‑align: left;
+}
+
+#toolsTable tbody tr:nth‑child(even) {
+  background: #f9f9f9;
+}
+
+/* Actions */
+button.action-btn {
+  margin‑right: 5px;
+  padding: 5px 10px;
+  font‑size: 0.9em;
+  border: none;
+  border‑radius: 3px;
+  cursor: pointer;
+}
+
+button.btn‑edit {
+  background: #ffcc00;
+  color: #333;
+}
+
+button.btn‑delete {
+  background: #e74c3c;
   color: #fff;
 }
-.card[data-category="Wiring"] .badge,
-.card[data-category="Fabrication"] .badge,
-.card[data-category="Assembly"] .badge,
-.card[data-category="QC"] .badge {
-  background: rgba(0,0,0,0.25);
-  border: 1px solid rgba(255,255,255,0.25);
-  color: inherit;
+
+button.action-btn:hover {
+  opacity: 0.9;
+}
+
+/* Footer */
+.site-footer {
+  text‑align: center;
+  padding: 15px 0;
+  font‑size: 0.9em;
+  color: #777;
+}
+
+/* Responsive */
+@media (max‑width: 600px) {
+  #toolsTable thead {
+    display: none;
+  }
+  #toolsTable, #toolsTable tbody, #toolsTable tr, #toolsTable td {
+    display: block;
+    width: 100%;
+  }
+  #toolsTable tr {
+    margin‑bottom: 15px;
+  }
+  #toolsTable td {
+    text‑align: right;
+    padding‑left: 50%;
+    position: relative;
+  }
+  #toolsTable td::before {
+    content: attr(data‑label);
+    position: absolute;
+    left: 10px;
+    width: 45%;
+    padding‑right: 10px;
+    white‑space: nowrap;
+    text‑align: left;
+    font‑weight: bold;
+  }
 }
