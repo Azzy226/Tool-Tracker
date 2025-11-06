@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device‑width, initial‑scale=1.0">
+  <title>Tool Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Tool Tracker</h1>
+    <p>Manage check‑ins / check‑outs easily</p>
+  </header>
+
+  <main class="container">
+    <section class="tool‑form">
+      <h2>Add / Edit Tool</h2>
+      <form id="toolForm">
+        <label for="toolName">Tool Name:</label>
+        <input type="text" id="toolName" name="toolName" required>
+
+        <label for="toolCategory">Category:</label>
+        <input type="text" id="toolCategory" name="toolCategory">
+
+        <label for="toolStatus">Status:</label>
+        <select id="toolStatus" name="toolStatus">
+          <option value="available">Available</option>
+          <option value="checked‑out">Checked Out</option>
+        </select>
+
+        <label for="toolHolder">Holder (if checked out):</label>
+        <input type="text" id="toolHolder" name="toolHolder">
+
+        <button type="submit">Save Tool</button>
+      </form>
+    </section>
+
+    <section class="tool‑list">
+      <h2>Tools</h2>
+      <input type="text" id="searchInput" placeholder="Search tools…">
+      <table id="toolsTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Holder</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Tool rows will be injected here by JS -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Tool Tracker</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
