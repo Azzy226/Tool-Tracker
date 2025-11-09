@@ -1,4 +1,3 @@
-<!-- * index.html * -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,8 +15,8 @@
 
     <!-- * Tabs * -->
     <div class="tabs">
-      <button id="tabSign" class="tab active">Sign Out Tool</button>
-      <button id="tabHistory" class="tab">History</button>
+      <button id="tabSign" class="tab active" type="button">Sign Out Tool</button>
+      <button id="tabHistory" class="tab" type="button">History</button>
     </div>
 
     <!-- * Sign-Out Panel * -->
@@ -27,9 +26,9 @@
 
       <!-- * Modes * -->
       <div class="modes">
-        <button id="modeQR" class="mode active">QR Code</button>
-        <button id="modeRFID" class="mode">RFID</button>
-        <button id="modeManual" class="mode">Manual</button>
+        <button id="modeQR" class="mode active" type="button">QR Code</button>
+        <button id="modeRFID" class="mode" type="button">RFID</button>
+        <button id="modeManual" class="mode" type="button">Manual</button>
       </div>
 
       <!-- * Primary Action * -->
@@ -42,33 +41,33 @@
       <form id="signForm" class="grid">
         <div>
           <label>Tool Identifier (or enter manually)</label>
-          <input id="fIdent" placeholder="Enter tool ID, QR code, or RFID tag" autocomplete="off"/>
+          <input id="fIdent" type="text" placeholder="Enter tool ID, QR code, or RFID tag" autocomplete="off" />
         </div>
 
         <div class="grid two">
           <div>
             <label>Date</label>
-            <input id="fDate" type="date"/>
+            <input id="fDate" type="date" />
           </div>
           <div>
             <label>User Initials (2-4 letters)</label>
-            <input id="fInit" placeholder="AB" maxlength="4"/>
+            <input id="fInit" type="text" placeholder="AB" maxlength="4" />
           </div>
         </div>
 
         <div>
           <label>Job Number (optional, format: P-#####)</label>
-          <input id="fJob" placeholder="P-12345" />
+          <input id="fJob" type="text" placeholder="P-12345" />
         </div>
 
         <div class="grid two">
           <div>
             <label>Building (optional)</label>
-            <input id="fBldg" placeholder="Building A" />
+            <input id="fBldg" type="text" placeholder="Building A" />
           </div>
           <div>
             <label>Section (optional, format: A-5)</label>
-            <input id="fSect" placeholder="A-5" />
+            <input id="fSect" type="text" placeholder="A-5" />
           </div>
         </div>
 
@@ -80,7 +79,7 @@
     <section id="panelHistory" class="panel hide">
       <h2>Sign-Out History</h2>
       <p class="muted">View and search all tool sign-out records.</p>
-      <input id="histSearch" class="search" placeholder="Search by tool, initials, job number, building, or section…"/>
+      <input id="histSearch" class="search" type="text" placeholder="Search by tool, initials, job number, building, or section…" />
       <div id="histList"><div class="empty">No sign-out records yet</div></div>
     </section>
 
@@ -101,13 +100,13 @@
           <div>By: <span class="tool-by">—</span></div>
         </div>
         <div class="actions">
-          <button class="btn edit">Edit</button>
-          <button class="btn checkout">Check out</button>
-          <button class="btn checkin">Check in</button>
-          <button class="btn archive">Archive</button>
-          <button class="btn primary qr-show">QR</button>
-          <button class="btn warn rfid-bind">Bind RFID</button>
-          <label class="turned-in">Turned in today <input type="checkbox" class="turned-in-toggle"/></label>
+          <button class="btn edit" type="button">Edit</button>
+          <button class="btn checkout" type="button">Check out</button>
+          <button class="btn checkin" type="button">Check in</button>
+          <button class="btn archive" type="button">Archive</button>
+          <button class="btn primary qr-show" type="button">QR</button>
+          <button class="btn warn rfid-bind" type="button">Bind RFID</button>
+          <label class="turned-in">Turned in today <input type="checkbox" class="turned-in-toggle" /></label>
         </div>
       </article>
     </template>
@@ -117,7 +116,7 @@
   <dialog id="qrDialog">
     <h3 id="qrDialogTitle">Tool QR</h3>
     <div id="qrCanvasWrap" class="qr-box"></div>
-    <button id="qrCloseBtn" class="btn">Close</button>
+    <button id="qrCloseBtn" class="btn" type="button">Close</button>
   </dialog>
 
   <!-- * Scan Dialog * -->
@@ -126,7 +125,7 @@
     <video id="scanVideo" playsinline class="scan-video"></video>
     <canvas id="scanCanvas" class="scan-canvas"></canvas>
     <div id="scanStatus" class="scan-status"></div>
-    <button id="scanCloseBtn" class="btn">Close</button>
+    <button id="scanCloseBtn" class="btn" type="button">Close</button>
   </dialog>
 
   <!-- * QR Libraries * -->
@@ -137,4 +136,3 @@
   <script defer src="app.js"></script>
 </body>
 </html>
-
