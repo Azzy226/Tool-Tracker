@@ -1,65 +1,140 @@
+<!-- * index.html * -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device‑width, initial‑scale=1.0">
-  <title>Tool Tracker</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <title>Tool Sign-Out Sheet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- * Styles * -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="site-header">
-    <h1>Tool Tracker</h1>
-    <p>Manage check‑ins / check‑outs easily</p>
-  </header>
+  <!-- * Container * -->
+  <div class="container">
+    <h1>Tool Sign-Out Sheet</h1>
+    <div class="sub">Track tool usage with QR code or RFID scanning</div>
 
-  <main class="container">
-    <section class="tool‑form">
-      <h2>Add / Edit Tool</h2>
-      <form id="toolForm">
-        <label for="toolName">Tool Name:</label>
-        <input type="text" id="toolName" name="toolName" required>
+    <!-- * Tabs * -->
+    <div class="tabs">
+      <button id="tabSign" class="tab active">Sign Out Tool</button>
+      <button id="tabHistory" class="tab">History</button>
+    </div>
 
-        <label for="toolCategory">Category:</label>
-        <input type="text" id="toolCategory" name="toolCategory">
+    <!-- * Sign-Out Panel * -->
+    <section id="panelSign" class="panel">
+      <h2>Sign Out a Tool</h2>
+      <p class="muted">Scan or manually enter tool information.</p>
 
-        <label for="toolStatus">Status:</label>
-        <select id="toolStatus" name="toolStatus">
-          <option value="available">Available</option>
-          <option value="checked‑out">Checked Out</option>
-        </select>
+      <!-- * Modes * -->
+      <div class="modes">
+        <button id="modeQR" class="mode active">QR Code</button>
+        <button id="modeRFID" class="mode">RFID</button>
+        <button id="modeManual" class="mode">Manual</button>
+      </div>
 
-        <label for="toolHolder">Holder (if checked out):</label>
-        <input type="text" id="toolHolder" name="toolHolder">
+      <!-- * Primary Action * -->
+      <div class="bar" id="actionBar">
+        <span class="icon">📷</span>
+        <span id="barText">Start QR Scanner</span>
+      </div>
 
-        <button type="submit">Save Tool</button>
+      <!-- * Form * -->
+      <form id="signForm" class="grid">
+        <div>
+          <label>Tool Identifier (or enter manually)</label>
+          <input id="fIdent" placeholder="Enter tool ID, QR code, or RFID tag" autocomplete="off"/>
+        </div>
+
+        <div class="grid two">
+          <div>
+            <label>Date</label>
+            <input id="fDate" type="date"/>
+          </div>
+          <div>
+            <label>User Initials (2-4 letters)</label>
+            <input id="fInit" placeholder="AB" maxlength="4"/>
+          </div>
+        </div>
+
+        <div>
+          <label>Job Number (optional, format: P-#####)</label>
+          <input id="fJob" placeholder="P-12345" />
+        </div>
+
+        <div class="grid two">
+          <div>
+            <label>Building (optional)</label>
+            <input id="fBldg" placeholder="Building A" />
+          </div>
+          <div>
+            <label>Section (optional, format: A-5)</label>
+            <input id="fSect" placeholder="A-5" />
+          </div>
+        </div>
+
+        <button class="submit" id="submitSign" type="submit">Sign Out Tool</button>
       </form>
     </section>
 
-    <section class="tool‑list">
-      <h2>Tools</h2>
-      <input type="text" id="searchInput" placeholder="Search tools…">
-      <table id="toolsTable">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Status</th>
-            <th>Holder</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Tool rows will be implemented here by JS -->
-        </tbody>
-      </table>
+    <!-- * History Panel * -->
+    <section id="panelHistory" class="panel hide">
+      <h2>Sign-Out History</h2>
+      <p class="muted">View and search all tool sign-out records.</p>
+      <input id="histSearch" class="search" placeholder="Search by tool, initials, job number, building, or section…"/>
+      <div id="histList"><div class="empty">No sign-out records yet</div></div>
     </section>
-  </main>
 
-  <footer class="site-footer">
-    <p>&copy; 2025 Tool Tracker</p>
-  </footer>
+    <!-- * Optional: Tool Cards * -->
+    <section id="toolList" class="cards"></section>
 
-  <script src="app.js"></script>
+    <!-- * Card Template * -->
+    <template id="toolCardTmpl">
+      <article class="card">
+        <header class="card-head">
+          <strong class="tool-name"></strong>
+          <span class="status">Available</span>
+        </header>
+        <div class="body">
+          <div>Category: <span class="tool-category">—</span></div>
+          <div>Condition: <span class="tool-condition">—</span></div>
+          <div>Job: <span class="tool-job">—</span></div>
+          <div>By: <span class="tool-by">—</span></div>
+        </div>
+        <div class="actions">
+          <button class="btn edit">Edit</button>
+          <button class="btn checkout">Check out</button>
+          <button class="btn checkin">Check in</button>
+          <button class="btn archive">Archive</button>
+          <button class="btn primary qr-show">QR</button>
+          <button class="btn warn rfid-bind">Bind RFID</button>
+          <label class="turned-in">Turned in today <input type="checkbox" class="turned-in-toggle"/></label>
+        </div>
+      </article>
+    </template>
+  </div>
+
+  <!-- * QR Dialog * -->
+  <dialog id="qrDialog">
+    <h3 id="qrDialogTitle">Tool QR</h3>
+    <div id="qrCanvasWrap" class="qr-box"></div>
+    <button id="qrCloseBtn" class="btn">Close</button>
+  </dialog>
+
+  <!-- * Scan Dialog * -->
+  <dialog id="scanDialog">
+    <h3>Scan QR Code</h3>
+    <video id="scanVideo" playsinline class="scan-video"></video>
+    <canvas id="scanCanvas" class="scan-canvas"></canvas>
+    <div id="scanStatus" class="scan-status"></div>
+    <button id="scanCloseBtn" class="btn">Close</button>
+  </dialog>
+
+  <!-- * QR Libraries * -->
+  <script defer src="https://unpkg.com/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script defer src="https://unpkg.com/jsqr@1.4.0/dist/jsQR.js"></script>
+
+  <!-- * App * -->
+  <script defer src="app.js"></script>
 </body>
 </html>
 
