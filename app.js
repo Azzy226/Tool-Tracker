@@ -3,9 +3,9 @@
 // ✦  In which tools are named, their journeys chronicled, and their spirits    ✦
 // ✦  recalled from the Vault of Local Storage.  NARROW YE JOURNEY COMING SOON  ✦
 // ✦────────────────────────────────────────────────────────────────────────────✦
-
-// ToolTracker V1 - Streamlined
-// =============================
+// ✦────────────────────────────────✦
+// ToolTracker V1 - Streamlined      ✦
+// ✦────────────────────────────────✦
 
 //* Storage Keys *
 const STORE_KEY = "tooltracker_v1";
