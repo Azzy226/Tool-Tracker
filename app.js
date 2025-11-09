@@ -1,4 +1,4 @@
-C:\Users\xethi\source\repos\Azzy226\Tool-Tracker\app.js
+
 // ✦────────────────────────────────────────────────────────────────────────────✦
 // ✦  TOOLTRACKER V1 — The ledger of iron & ink. Improved and slightly less rude. ✦
 // ✦────────────────────────────────────────────────────────────────────────────✦
