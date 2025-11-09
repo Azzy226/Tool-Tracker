@@ -19,4 +19,4 @@ Construction crews tracking shared equipment
 Maker spaces or fab labs loaning tools
 Small shops managing repair instruments
 Field teams logging borrowed devices
-Ignore every thing til (1.0)
+QR Code and RFID functionality to Simplify Sign in and out
