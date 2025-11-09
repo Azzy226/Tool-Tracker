@@ -4,13 +4,14 @@
 // ✦  recalled from the Vault of Local Storage.  NARROW YE JOURNEY COMING SOON  ✦
 // ✦────────────────────────────────────────────────────────────────────────────✦
 
-//✦ ToolTracker V1 ✦
+// ToolTracker V1 - Streamlined
+// =============================
 
-//✦ Storage Keys ✦
+//* Storage Keys *
 const STORE_KEY = "tooltracker_v1";
 const SIGN_KEY  = "tooltracker_signouts_v1";
 
-//✦ DOM Helpers ✦
+//* DOM Helpers *
 const $  = (s,p=document)=>p.querySelector(s);
 const $$ = (s,p=document)=>Array.from(p.querySelectorAll(s));
 
@@ -31,9 +32,8 @@ function logHistory(t, action, extra={}){ t.history=t.history||[]; t.history.pus
 function upsertTool(tool){ const i=tools.findIndex(x=>x.id===tool.id); if(i===-1) tools.push(tool); else tools[i]=tool; save(STORE_KEY,tools); renderCards(); }
 function findTool(id){ return tools.find(t=>t.id===id); }
 
-//* UI Refs *
-const els={
-  tabSign:$("#tabSign"), tabHistory:$("#tabHistory"),
+//* UI Elements *
+const els={ tabSign:$("#tabSign"), tabHistory:$("#tabHistory"),
   panelSign:$("#panelSign"), panelHistory:$("#panelHistory"),
   modeQR:$("#modeQR"), modeRFID:$("#modeRFID"), modeManual:$("#modeManual"),
   actionBar:$("#actionBar"), barText:$("#barText"),
@@ -64,9 +64,11 @@ function setMode(m){
   els.modeQR.classList.toggle("active",m==="qr");
   els.modeRFID.classList.toggle("active",m==="rfid");
   els.modeManual.classList.toggle("active",m==="manual");
-  if(m==="qr") els.barText.textContent="Start QR Scanner";
-  if(m==="rfid") els.barText.textContent="Scan RFID Tag";
-  if(m==="manual") els.barText.textContent="Manual Entry Active";
+  els.barText.textContent={
+    qr: "Start QR Scanner",
+    rfid: "Scan RFID Tag",
+    manual: "Manual Entry Active"
+  }[m];
 }
 els.modeQR.onclick = ()=>setMode("qr");
 els.modeRFID.onclick = ()=>setMode("rfid");
@@ -185,28 +187,11 @@ function renderCards(){
   });
 }
 
-//* Quick Card Actions *
-function openEdit(id){ /* * minimal placeholder for now * */ alert("Edit not implemented in this view. Use card quick actions."); }
-function quickCheckout(t){
-  t.status="checked_out";
-  t.assignedJob=prompt("Job number (optional):",t.assignedJob||"")||"";
-  t.checkedOutBy=prompt("Your initials (2–4):",t.checkedOutBy||"")||"";
-  t.turnedInToday=false;
-  logHistory(t,"checkout",{job:t.assignedJob,by:t.checkedOutBy});
-  upsertTool(t);
-}
-function quickCheckin(t){
-  t.status="available"; t.turnedInToday=true; t.assignedJob=t.checkedOutBy=undefined;
-  logHistory(t,"checkin",{notes:"Card quick check-in"});
-  upsertTool(t);
-}
-function archiveTool(id){ const t=findTool(id); if(!t) return; t.status=(t.status==="archived")?"available":"archived"; logHistory(t,"archive"); upsertTool(t); }
-
 //* Tag Payloads *
 function toolTagPayload(t){ return `TT:${t.id}`; }
 function parseToolTagPayload(text){ const m=String(text||"").trim().match(/^TT:([0-9a-fA-F-]{8,})$/); return m?m[1]:null; }
 
-//* Show QR *
+//* QR Viewer *
 function showToolQR(t){
   const dlg=els.qrDlg, box=els.qrWrap; if(!dlg||!box) return;
   box.innerHTML=""; els.qrTitle.textContent=`QR • ${t.name||t.id}`;
@@ -245,7 +230,7 @@ async function tickScan(){
 }
 function handleScannedText(text){ const id=parseToolTagPayload(text)||text; els.ident.value=id; stopQrScan(); return true; }
 
-//* Web Serial RFID *
+//* Serial/RFID Support *
 let _serialPort=null,_serialReader=null,_serialAbort=null;
 async function ensureSerial(){
   if(_serialPort) return _serialPort;
@@ -269,22 +254,37 @@ async function readSerialLoop(){
     }
   }
 }
-
-//* Manual RFID Bind *
 function bindRfidManual(t){
   const uid=prompt("Enter RFID UID (hex):",t.rfidUid||""); if(!uid) return;
   t.rfidUid=uid.trim(); logHistory(t,"update",{notes:"RFID bound (manual)"}); upsertTool(t);
 }
 
-//* Keyboard Shortcuts *
+//* Card Quick Actions *
+function openEdit(id){ alert("Edit not implemented. Use quick actions."); }
+function quickCheckout(t){
+  t.status="checked_out";
+  t.assignedJob=prompt("Job number (optional):",t.assignedJob||"")||"";
+  t.checkedOutBy=prompt("Your initials (2–4):",t.checkedOutBy||"")||"";
+  t.turnedInToday=false;
+  logHistory(t,"checkout",{job:t.assignedJob,by:t.checkedOutBy});
+  upsertTool(t);
+}
+function quickCheckin(t){
+  t.status="available"; t.turnedInToday=true; t.assignedJob=t.checkedOutBy=undefined;
+  logHistory(t,"checkin",{notes:"Quick check-in"});
+  upsertTool(t);
+}
+function archiveTool(id){ const t=findTool(id); if(!t) return; t.status=(t.status==="archived")?"available":"archived"; logHistory(t,"archive"); upsertTool(t); }
+
+//* Keyboard Shortcut *
 window.onkeydown=(e)=>{ const k=(e.key||"").toLowerCase(); if(k==="/"){ e.preventDefault(); els.ident?.focus(); } };
 
-//* Demo Data + Boot *
+//* Initial Demo Data *
 if(tools.length===0){
   tools=[
-    {id:uuid(),name:"Cordless Drill",category:"Power Tools",condition:"Functional",status:"available",turnedInToday:true,notes:"",history:[{ts:nowISO(),action:"create"}]},
-    {id:uuid(),name:"Torque Wrench", category:"Hand Tools", condition:"Functional",status:"available",turnedInToday:true,notes:"",history:[{ts:nowISO(),action:"create"}]},
-    {id:uuid(),name:"Label Maker",   category:"Shop",       condition:"Functional",status:"available",turnedInToday:true,notes:"",history:[{ts:nowISO(),action:"create"}]},
+    {id:uuid(),name:"Cordless Drill",category:"Power Tools",condition:"Functional",status:"available",turnedInToday:true,history:[{ts:nowISO(),action:"create"}]},
+    {id:uuid(),name:"Torque Wrench", category:"Hand Tools", condition:"Functional",status:"available",turnedInToday:true,history:[{ts:nowISO(),action:"create"}]},
+    {id:uuid(),name:"Label Maker",   category:"Shop",       condition:"Functional",status:"available",turnedInToday:true,history:[{ts:nowISO(),action:"create"}]},
   ];
   save(STORE_KEY,tools);
 }
