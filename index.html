@@ -4,40 +4,33 @@
   <meta charset="utf-8" />
   <title>Tool Sign-Out Sheet</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- * Styles * -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- * Container * -->
   <div class="container">
     <h1>Tool Sign-Out Sheet</h1>
     <div class="sub">Track tool usage with QR code or RFID scanning</div>
 
-    <!-- * Tabs * -->
     <div class="tabs">
       <button id="tabSign" class="tab active" type="button">Sign Out Tool</button>
       <button id="tabHistory" class="tab" type="button">History</button>
     </div>
 
-    <!-- * Sign-Out Panel * -->
     <section id="panelSign" class="panel">
       <h2>Sign Out a Tool</h2>
       <p class="muted">Scan or manually enter tool information.</p>
 
-      <!-- * Modes * -->
       <div class="modes">
         <button id="modeQR" class="mode active" type="button">QR Code</button>
         <button id="modeRFID" class="mode" type="button">RFID</button>
         <button id="modeManual" class="mode" type="button">Manual</button>
       </div>
 
-      <!-- * Primary Action * -->
       <div class="bar" id="actionBar">
         <span class="icon">📷</span>
         <span id="barText">Start QR Scanner</span>
       </div>
 
-      <!-- * Form * -->
       <form id="signForm" class="grid">
         <div>
           <label>Tool Identifier (or enter manually)</label>
@@ -75,7 +68,6 @@
       </form>
     </section>
 
-    <!-- * History Panel * -->
     <section id="panelHistory" class="panel hide">
       <h2>Sign-Out History</h2>
       <p class="muted">View and search all tool sign-out records.</p>
@@ -83,10 +75,8 @@
       <div id="histList"><div class="empty">No sign-out records yet</div></div>
     </section>
 
-    <!-- * Optional: Tool Cards * -->
     <section id="toolList" class="cards"></section>
 
-    <!-- * Card Template * -->
     <template id="toolCardTmpl">
       <article class="card">
         <header class="card-head">
@@ -112,14 +102,12 @@
     </template>
   </div>
 
-  <!-- * QR Dialog * -->
   <dialog id="qrDialog">
     <h3 id="qrDialogTitle">Tool QR</h3>
     <div id="qrCanvasWrap" class="qr-box"></div>
     <button id="qrCloseBtn" class="btn" type="button">Close</button>
   </dialog>
 
-  <!-- * Scan Dialog * -->
   <dialog id="scanDialog">
     <h3>Scan QR Code</h3>
     <video id="scanVideo" playsinline class="scan-video"></video>
@@ -128,11 +116,8 @@
     <button id="scanCloseBtn" class="btn" type="button">Close</button>
   </dialog>
 
-  <!-- * QR Libraries * -->
   <script defer src="https://unpkg.com/qrcode@1.5.3/build/qrcode.min.js"></script>
   <script defer src="https://unpkg.com/jsqr@1.4.0/dist/jsQR.js"></script>
-
-  <!-- * App * -->
   <script defer src="app.js"></script>
 </body>
 </html>
