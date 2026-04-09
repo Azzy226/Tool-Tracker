@@ -12,8 +12,4 @@ Export and import data as JSON backups
 Clean, responsive UI built with vanilla JavaScript
 
 All data stored locally in your browser
-Construction crews tracking shared equipment
-Maker spaces or fab labs loaning tools
-Small shops managing repair instruments
-Field teams logging borrowed devices
-QR Code and RFID functionality to Simplify Sign in and out
+QR Code and RFID functionality to Simplify Sign in and out optional
