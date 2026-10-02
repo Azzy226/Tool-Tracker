@@ -128,22 +128,10 @@
       let t = document.createElement("div");
       t.className = "tt-toast";
       t.textContent = msg;
-      Object.assign(t.style, {
-        position: "fixed",
-        right: "16px",
-        bottom: "16px",
-        background: "#222",
-        color: "#fff",
-        padding: "8px 12px",
-        borderRadius: "6px",
-        zIndex: 9999,
-        opacity: 0,
-        transition: "opacity 150ms ease",
-      });
       document.body.appendChild(t);
-      requestAnimationFrame(() => (t.style.opacity = "1"));
+      requestAnimationFrame(() => t.classList.add("show"));
       setTimeout(() => {
-        t.style.opacity = "0";
+        t.classList.remove("show");
         setTimeout(() => t.remove(), 180);
       }, ms);
     } catch (e) {
