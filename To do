@@ -1,1 +1,22 @@
-Test
+To do
+
+Core features
+- Build the Edit tool form (the Edit button currently shows a "not implemented" notice)
+- Add JSON export and import backups
+- Add search and filters on the tool list by status, category and job
+- Add a check-in form with condition and notes
+- Add a way to add new tools (currently only the sample tools are seeded)
+
+Scanning
+- Test QR scanning and RFID reader support on real devices
+- Show a clear message when camera permission is denied
+
+Quality
+- Test the Light and Dark themes on mobile screen sizes
+- Test keyboard navigation and screen reader labels
+- Handle full or blocked localStorage without losing data silently
+
+Release
+- Wrap the web app as an Android app (for example with Capacitor or a Trusted Web Activity)
+- Add an app icon and splash screen
+- Upload to the Google Play Store for Android
